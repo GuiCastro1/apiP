@@ -49,7 +49,7 @@
         const tabelaResposta = document.getElementById("tabelaResposta");
 
         // URL da API
-        const url = "http://localhost:8080/produtos/";
+        const url = "http://localhost:8080/usuario";
 
         // Esse modelo utiliza o comando fetch e trabalha com promessas. 
         fetch(url)
@@ -64,13 +64,15 @@
                 while(contador < resposta.length){
 
                     if(contador == 0){
-                        tabelaResposta.innerHTML += "<thead><tr><th>ID do produto</th><th>Nome do produto</th><th>Preço</th><th>Tipo</th><th>QTD Estoque</th><th>Descrição</th></tr></thead>";
+                        tabelaResposta.innerHTML += "<thead><tr><th>ID do user</th><th>Nome do user</th><th>Preço</th><th>email</th><th>QTD Estoque</th></tr></thead>";
                     }
 
-                    tabelaResposta.innerHTML += "<tr><td>" + resposta[contador].idProduto + "</td><td>" + resposta[contador].nomeProduto + "</td><td>" + resposta[contador].preco + "</td><td>" + resposta[contador].tipo + "</td><td>" + resposta[contador].quantEstoque + "</td><td>" + resposta[contador].descricao + "</td></tr>";
+                    tabelaResposta.innerHTML += "<tr><td>" + resposta[contador].IdUser + "</td><td>" + resposta[contador].NameUser + "</td><td>" + resposta[contador].EmailUser + "</td><td>" + resposta[contador].TelefoneUser + "</td><td>" + resposta[contador].PasswordUser + "</td><td>" ;
                     contador++
                 }
 
+                // <th>Descrição</th>
+// + resposta[contador].descricao + "</td></tr>"
                 // Exemplo dos dados exibidos em tela
                 // innerHTML é uma propriedade que define o conteúdo HTML de um elemento
                 // for (let i = 0; i < 50; i++) {
