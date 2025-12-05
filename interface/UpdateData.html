@@ -37,8 +37,8 @@
             <p>Informe um ID para carregar os dados</p>
             <form id="primeiro">
                 <div class="mb-3">
-                    <label for="id" class="form-label">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" required>
+                    <label for="IdUser" class="form-label">ID</label>
+                    <input type="text" class="form-control" id="IdUser" name="IdUser" required>
                 </div>
                 <button id="enviarPrimeiro" type="submit" class="btn btn-primary">Buscar</button>
             </form>
@@ -48,33 +48,33 @@
             <form id="segundo" class="needs-validation">
 
                 <div class="col-sm-12">
-                    <label for="nomeProduto" class="form-label">Nome do produto:</label>
-                    <input type="text" name="nomeProduto" id="nomeProduto" class="form-control" required>
+                    <label for="NameUser" class="form-label">Nome do usuario:</label>
+                    <input type="text" name="NameUser" id="NameUser" class="form-control" required>
                 </div>
 
                 <div class="col-sm-12">
-                    <label for="preco" class="form-label">Preço:</label>
-                    <input type="text" name="preco" id="preco" class="form-control" required>
+                    <label for="EmailUser" class="form-label">Email:</label>
+                    <input type="text" name="EmailUser" id="EmailUser" class="form-control" required>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <label for="tipo" class="form-label">Tipo:</label>
-                        <input type="text" name="tipo" id="tipo" class="form-control">
+                        <label for="TelefoneUser" class="form-label">Telefone:</label>
+                        <input type="text" name="TelefoneUser" id="TelefoneUser" class="form-control">
                     </div>
 
                     <div class="col-sm-6">
-                        <label for="quantEstoque" class="form-label">Quantidade Estoque:</label>
-                        <input type="text" name="quantEstoque" id="quantEstoque" class="form-control">
+                        <label for="PasswordUser" class="form-label">Senha:</label>
+                        <input type="text" name="PasswordUser" id="PasswordUser" class="form-control">
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-sm-6">
                         <label for="descricao" class="form-label">Descrição:</label>
                         <input type="text" name="descricao" id="descricao" class="form-control" required>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <input type="submit" class="my-4 w-100 btn btn-primary btn-lg"
                         value="Atualizar produto">
@@ -108,10 +108,10 @@
             event.preventDefault();
 
             // coleto o id do primeiro formulario
-            var id = document.getElementById("id").value;
+            var id = document.getElementById("IdUser").value;
 
             // URL da API
-            var url = `http://localhost:8080/produtos/buscar/id/${id}`;
+            var url = `http://localhost:8080/usuario/${id}`;
 
             fetch(url)
                 .then(response => {
@@ -120,11 +120,11 @@
                 .then(resposta => {
                     console.log("Abaixo o resultado do consumo da API")
                     console.log(resposta);
-                    document.getElementById("nomeProduto").value = resposta.nomeProduto;
-                    document.getElementById("preco").value = resposta.preco;
-                    document.getElementById("tipo").value = resposta.tipo;
-                    document.getElementById("quantEstoque").value = resposta.quantEstoque;
-                    document.getElementById("descricao").value = resposta.descricao;
+                    document.getElementById("NameUser").value = resposta.IdUser;
+                    document.getElementById("EmailUser").value = resposta.NameUser;
+                    document.getElementById("TelefoneUser").value = resposta.EmailUser;
+                    document.getElementById("PasswordUser").value = resposta.TelefoneUser;
+                    // document.getElementById("descricao").value = resposta.PasswordUser;
                 })
         }
 
@@ -134,28 +134,29 @@
 
             // coleto o id do primeiro formulario e o valor dos campos do segundo formulario
             // Uso FormData para coletar os valores do segundo formulario
-            var id = document.getElementById("id").value;
+            var id = document.getElementById("IdUser").value;
 
             var formData = new FormData(document.getElementById("segundo"));
-            var nomeProduto = formData.get("nomeProduto");
-            var preco = formData.get("preco");
-            var tipo = formData.get("tipo");
-            var quantEstoque = formData.get("quantEstoque");
-            var descricao = formData.get("descricao");
+            var nomeProduto = formData.get("NameUser");
+            var preco = formData.get("EmailUser");
+            var tipo = formData.get("TelefoneUser");
+            var quantEstoque = formData.get("PasswordUser");
+            // var descricao = formData.get("descricao");
             // URL da API
-            var url = `http://localhost:8080/produtos/atualizar/${id}`;
+            var url = `http://localhost:8080/usuario/${id}`;
 
             fetch(url, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                //    ' Access-Control-Allow-Origin'
                 },
                 body: JSON.stringify({
-                    nomeProduto: nomeProduto,
-                    preco: preco,
-                    tipo: tipo,
-                    quantEstoque: quantEstoque,
-                    descricao: descricao
+                    NameUser: nomeProduto,
+                    EmailUser: preco,
+                    TelefoneUser: tipo,
+                    PasswordUser: quantEstoque,
+                    // descricao: descricao
                 })
             })
                 .then(response => {
@@ -166,15 +167,102 @@
                     console.log(resposta);
                     document.getElementById("response").innerHTML = "Registro atualizado com sucesso!";
                     alert("Registro atualizado com sucesso!");
-                    document.getElementById("nomeProduto").value = null;
-                    document.getElementById("preco").value = null;
-                    document.getElementById("tipo").value = null;
-                    document.getElementById("quantEstoque").value = null;
-                    document.getElementById("descricao").value = null;
+                    document.getElementById("NameUser").value = null;
+                    document.getElementById("EmailUser").value = null;
+                    document.getElementById("TelefoneUser").value = null;
+                    document.getElementById("PasswordUser").value = null;
+                    // document.getElementById("descricao").value = null;
                 })
         }
 
-    </script>
+    </script> 
+
+ <!--   <script>
+  const primeiro = document.getElementById("primeiro");
+  const enviarPrimeiro = document.getElementById("enviarPrimeiro");
+  enviarPrimeiro.addEventListener("click", buscarPorId);
+
+  const segundo = document.getElementById("segundo");
+  segundo.addEventListener("submit", atualizarRegistro);
+
+  function buscarPorId(event) {
+    event.preventDefault();
+    const id = document.getElementById("IdUser").value.trim();
+    if (!id) {
+      alert("Informe um ID");
+      return;
+    }
+
+    const url = `http://localhost:8080/usuario/${id}`;
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error('Erro ao buscar: ' + response.status);
+        return response.json();
+      })
+      .then(resposta => {
+        console.log("resultado:", resposta);
+        // Ajuste de acordo com o JSON que o backend retorna (camelCase)
+        document.getElementById("NameUser").value = resposta.nameUser || resposta.NameUser || "";
+        document.getElementById("EmailUser").value = resposta.emailUser || resposta.EmailUser || "";
+        document.getElementById("TelefoneUser").value = resposta.telefoneUser || resposta.TelefoneUser || "";
+        document.getElementById("PasswordUser").value = resposta.passwordUser || resposta.PasswordUser || "";
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Erro ao buscar usuário: " + err.message);
+      });
+  }
+
+  function atualizarRegistro(event) {
+    event.preventDefault();
+
+    const id = document.getElementById("IdUser").value.trim();
+    if (!id) {
+      alert("Coloque o ID antes de atualizar");
+      return;
+    }
+
+    const formData = new FormData(document.getElementById("segundo"));
+    const nome = formData.get("NameUser");
+    const email = formData.get("EmailUser");
+    const telefone = formData.get("TelefoneUser");
+    const password = formData.get("PasswordUser");
+
+    const url = `http://localhost:8080/usuario/${id}`;
+
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nameUser: nome,
+        emailUser: email,
+        telefoneUser: telefone,
+        passwordUser: password
+      })
+    })
+      .then(response => {
+        if (!response.ok) return response.text().then(t => { throw new Error(t || response.status); });
+        return response.json();
+      })
+      .then(resposta => {
+        console.log("PUT response:", resposta);
+        document.getElementById("response").innerHTML = "Registro atualizado com sucesso!";
+        alert("Registro atualizado com sucesso!");
+        // limpa campos se quiser
+        // document.getElementById("NameUser").value = "";
+        // ...
+      })
+      .catch(err => {
+        console.error("Erro no PUT:", err);
+        document.getElementById("response").innerHTML = "Erro ao atualizar: " + err.message;
+        alert("Erro ao atualizar: " + err.message);
+      });
+  }
+</script> -->
+
 </body>
 
 </html>
